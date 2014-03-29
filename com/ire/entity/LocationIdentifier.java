@@ -17,6 +17,12 @@ public class LocationIdentifier {
 		locidentiferList.add("latitude");
 		locidentiferList.add("latitude");
 		locidentiferList.add("latitude");
+		locidentiferList.add("area_code");
+		locidentiferList.add("area code");
+		locidentiferList.add("latd");
+		locidentiferList.add("latm");
+		locidentiferList.add("currency");
+		locidentiferList.add("coords");
 		}
 
 	public static boolean isLocation(String word) {
