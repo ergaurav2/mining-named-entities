@@ -101,7 +101,7 @@ public class IndexingTools {
 			e.printStackTrace();
 		}
 		try {
-			System.out.println("Size "+maparrindex.size());
+			//System.out.println("Size "+maparrindex.size());
 			if (maparrindex.size() > MAX_SIZE) {
 				StringBuffer sb = new StringBuffer();
 				sb.append(outtempfile);
@@ -461,20 +461,31 @@ public class IndexingTools {
 	 * @param type Type of the title
 	 */
 	public static void addTitletoIndex(String pageid, String title, int type) {
-		String [] words = title.split(" ");
-		if(maparrindex.containsKey(title)) {
-			ArrayList<String>[] pageidsarr = maparrindex.get(title);
-			pageidsarr[type].add(pageid);
-		} else {
-			ArrayList<String>[] pageidsarr = new ArrayList[3];
-			pageidsarr[0] = new ArrayList<String>();
-			pageidsarr[1] = new ArrayList<String>();
-			pageidsarr[2] = new ArrayList<String>();
-			pageidsarr[type].add(pageid);
-			maparrindex.put(title, pageidsarr);
+		
+		String words [] = title.split(" ");
+		int titlelen = words.length;
+		//System.out.println("Title "+title);
+		//System.out.println("Title len "+titlelen);
+		List<String> wordstobeadded = new ArrayList<String>();
+	//	List<Integer> wordslen = new ArrayList<Integer>();
+		for(int i=0;i<titlelen;i++) {
+			StringBuffer sb = new StringBuffer();
+			sb.append(words[i]);
+			wordstobeadded.add(sb.toString());
+			//System.out.println("word "+sb.toString());
+		//	wordslen.add(1);
+			int count = 1;
+			for(int j=i+1;j<words.length;j++) {
+				count++;
+				sb.append(" ");
+				sb.append(words[j]);
+			wordstobeadded.add(sb.toString());
+			//wordslen.add(count);
+			}
+			//System.out.println("word "+sb.toString());
 		}
-		for(int i=0;i<words.length;i++) {
-			String word = words[i];
+		for(int i=0;i<wordstobeadded.size();i++) {
+			String word = wordstobeadded.get(i);
 			if(maparrindex.containsKey(word)) {
 				ArrayList<String>[] pageidsarr = maparrindex.get(word);
 				pageidsarr[type].add(pageid);
@@ -539,7 +550,7 @@ public class IndexingTools {
 			}
 			
 			try {
-				System.out.println("Adding "+sb);
+				//System.out.println("Adding "+sb);
 				bw.write(sb.toString());
 			bw.newLine();
 			sb.setLength(0);
